@@ -9,11 +9,11 @@ import scipy.io.wavfile as wav
 SAMPLE_RATE = 16000
 DURATION = 5  # seconds per recording
 
-print("🎙️ Whisper Real-Time Test (Final Stable Version)")
+print("🎙️ Whisper Real-Time Test")
 print("🎤 Speak for 5 seconds at a time... Ctrl+C to stop.")
 
 # Load Whisper model
-model = whisper.load_model("base")  # use "tiny" for faster testing
+model = whisper.load_model("base")
 
 def record_audio(duration=5):
     """Record audio for a fixed duration"""
@@ -29,7 +29,7 @@ def transcribe(audio):
         tmp_path = tmpfile.name
         wav.write(tmp_path, SAMPLE_RATE, (audio * 32767).astype(np.int16))
     
-    # Wait a moment to ensure the file is released on Windows
+    # Wait to ensure the file is released on Windows
     time.sleep(0.2)
     print("🧠 Transcribing...")
     result = model.transcribe(tmp_path)
@@ -39,7 +39,7 @@ def transcribe(audio):
     try:
         os.remove(tmp_path)
     except PermissionError:
-        print("⚠️ Could not delete temp file, skipping cleanup.")
+        print("Could not delete temp file, skipping cleanup.")
     return result["text"]
 
 try:
@@ -49,4 +49,4 @@ try:
         print(f"🗣️ You said: {text.strip()}")
         time.sleep(1)
 except KeyboardInterrupt:
-    print("\n👋 Exiting. Goodbye!")
+    print("\n End")

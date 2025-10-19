@@ -9,7 +9,6 @@ import scipy.io.wavfile as wav
 # Load model
 model = whisper.load_model("base")
 
-# Recording parameters
 SAMPLE_RATE = 16000
 DURATION = 5  # seconds per segment
 
@@ -28,7 +27,6 @@ def transcribe_segment(audio_data):
     # Transcribe
     result = model.transcribe(tmp_path)
     
-    # Remove safely
     try:
         os.remove(tmp_path)
     except PermissionError:
@@ -50,7 +48,7 @@ try:
         if text.strip():
             print(f"🗣️ You said: {text}")
         else:
-            print("❌ No speech detected.")
+            print("No speech detected.")
         time.sleep(1)
 except KeyboardInterrupt:
-    print("\n🛑 Stopped.")
+    print("\nStopped.")
